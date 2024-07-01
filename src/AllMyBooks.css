@@ -1,0 +1,59 @@
+.book-cover {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-cover:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.book-cover .card-img-top {
+  object-fit: contain;
+  background: linear-gradient(45deg, #d4fc79, #96e6a1);
+  filter: brightness(90%);
+}
+
+.book-cover:hover .card-img-top {
+  filter: brightness(100%);
+}
+
+.book-cover .card-body {
+  background: linear-gradient(45deg, #6b5b95, #b8a9c9);
+  color: white;
+  padding: 20px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.book-cover .card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.book-cover .book-price {
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.book-cover .book-category {
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  .book-cover .card-img-top {
+    height: 350px;
+  }
+}
