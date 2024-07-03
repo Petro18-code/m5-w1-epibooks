@@ -1,25 +1,29 @@
-import { Card, Col, Row } from "react-bootstrap";
-import { romance } from '../data/romance.js';
-import "../AllMyBooks.css";
+import { Row } from "react-bootstrap";
+import SingleBook from "./SingleBook";
+import { romance } from "../data/romance.js";
+import { InputGroup, Form } from "react-bootstrap";
+import { useState } from "react";
 
 function AllMyBooks() {
+  const [search, setSearch] = useState("");
+  const [resultSearch, setResultSearch] = useState(romance);
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+    const resultTemp = romance.filter((book) => book.title.toLowerCase().includes(event.target.value.toLowerCase())||book.asin.toLowerCase().includes(event.target.value));
+    setResultSearch(resultTemp);
+  }
   return (
-    <Row className="g-4">
-      {romance.map((book) => {
-        return (
-          <Col xs={12} md={6} lg={4} key={book.asin} className="d-flex align-items-stretch">
-            <Card className="book-cover d-flex flex-column w-100">
-              <Card.Img variant="top" src={book.img} />
-              <Card.Body className="d-flex flex-column">
-                <Card.Title>{book.title}</Card.Title>
-                <Card.Text className="text-center book-price ">{book.price} €</Card.Text>
-                <Card.Text className="text-center book-category ">Category: {book.category.toUpperCase()}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        );
-      })}
-    </Row>
+      <Row className="g-4">
+        <InputGroup className="mb-3">
+          <Form.Control
+            placeholder="Search any book"
+            aria-label="Search any book"
+            aria-describedby="basic-addon2"
+            onChange={handleSearch}
+          />
+        </InputGroup>
+        {resultSearch.map((b) => (<SingleBook key={b.asin} book={b}></SingleBook>))}
+      </Row>
   );
 }
 
