@@ -63,7 +63,7 @@ function AddComment({ asin, loadComments }) {
           onChange={handleChange}
           value={formValue.comment}
         />
-        <Button variant="primary" onClick={handleSaveComment}>
+        <Button variant="primary" onClick={handleSaveComment} className="mt-3">
           Send Comment
         </Button>
       </Form.Group>
