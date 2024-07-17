@@ -1,26 +1,20 @@
 import { Card, Col } from "react-bootstrap";
 import "../AllMyBooks.css";
-import { useState } from "react";
-import CommentArea from "./CommentArea";
+import {  useContext } from "react";
+import { ThemeContext } from "../context/ThemeContextProvider";
 
-function SingleBook({ book }) {
-  const [selected, setSelected] = useState(false);
-  const handleClick = () => {
-    setSelected(!selected);
-  }
+function SingleBook({ book, selected, handleClick }) {
+  const {theme} = useContext(ThemeContext);
+
   return (
-    <Col xs={12} md={6} lg={3} className="d-flex align-items-stretch">
-      <Card className={selected ? "book-cover d-flex flex-column w-100 redBorder" : "book-cover d-flex flex-column w-100"} >
-        <Card.Img variant="top" src={book.img} onClick={handleClick} />
+    <Col xs={12} md={6} lg={4} className="d-flex align-items-stretch">
+      <Card className={theme === 'light' ? "book-cover d-flex flex-column w-100" : "book-cover d-flex flex-column w-100 bg-dark text-white"}>
+        <Card.Img variant="top" src={book.img} className={selected === book.asin ? "object-fit-cover redBorder" : "object-fit-cover"} onClick={() => handleClick(book.asin)}/>
         <Card.Body className="d-flex flex-column">
           <Card.Title>{book.title}</Card.Title>
           <Card.Text className="text-center book-price ">
             {book.price} €
           </Card.Text>
-          <Card.Text className="text-center book-category ">
-            Category: {book.category.toUpperCase()}
-          </Card.Text>
-          {selected && <CommentArea asin={book.asin}/>}
         </Card.Body>
       </Card>
     </Col>

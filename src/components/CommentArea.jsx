@@ -22,12 +22,12 @@ function CommentArea({ asin }) {
 
   useEffect(() => {
     loadComments();
-  }, []);
+  }, [asin]);
 
   return (
     <>
-      <AddComment asin={asin} />
-      <CommentList comments={comments} />
+      <AddComment asin={asin} loadComments={loadComments} />
+      <CommentList comments={comments} loadComments={loadComments}/>
     </>
   );
 }
