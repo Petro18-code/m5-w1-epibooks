@@ -72,7 +72,7 @@ function SingleComment({ comment, loadComments }) {
 
   return (
     <ListGroup className="mb-3">
-      <ListGroup.Item>{comment.author} </ListGroup.Item>
+      <ListGroup.Item>Review by: {comment.author} </ListGroup.Item>
       <ListGroup.Item>
         {isEditing ? (
           <Form.Control

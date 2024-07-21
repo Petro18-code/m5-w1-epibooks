@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar, InputGroup, Form, Button } from 'react-bootstrap';
 import { ThemeContext } from '../context/ThemeContextProvider';
 import { useContext } from 'react';
-function MyNav({handleSearch}) {
+function MyNav({handleSearch, handleCategoryChange}) {
   const { theme, toggleTheme } = useContext(ThemeContext);
   return (
     <Navbar expand="lg" className={theme === 'light' ? "bg-body-tertiary position-sticky top-0 z-3" : "bg-body-tertiary position-sticky top-0 z-3 bg-dark"} data-bs-theme={theme}>
@@ -23,6 +23,13 @@ function MyNav({handleSearch}) {
             aria-describedby="basic-addon2"
             onChange={handleSearch}
           />
+          <Form.Control as="select" onChange={handleCategoryChange} className="mr-sm-2">
+            <option value="romance">Romance</option>
+            <option value="history">History</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="horror">Horror</option>
+            <option value="scifi">Scifi</option>
+          </Form.Control>
         </InputGroup>
       </Container>
     </Navbar>

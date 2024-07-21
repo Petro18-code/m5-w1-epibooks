@@ -5,12 +5,9 @@ import MyFooter from "./components/MyFooter.jsx";
 import Welcome from "./components/Welcome.jsx";
 import AllMyBooks from "./components/AllMyBooks.jsx";
 import { Container } from "react-bootstrap";
-import { useState, useContext } from "react";
-import { romance } from "./data/romance.js";
-import {
-  ThemeContextProvider,
-  ThemeContext,
-} from "./context/ThemeContextProvider.jsx";
+import { useState } from "react";
+import { romance, fantasy, horror, scifi, history } from "./data/romance.js";
+import { ThemeContextProvider } from "./context/ThemeContextProvider.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./components/NotFound.jsx";
 import BookDetails from "./components/BookDetails.jsx";
@@ -18,20 +15,45 @@ import ThemeWrapper from "./components/ThemeWrapper.jsx";
 
 function App() {
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("romance");
   const [resultSearch, setResultSearch] = useState(romance);
   const handleSearch = (event) => {
     setSearch(event.target.value);
-    const resultTemp = romance.filter(
+    const resultTemp = getCategoryBooks().filter(
       (book) =>
         book.title.toLowerCase().includes(event.target.value.toLowerCase()) ||
         book.asin.toLowerCase().includes(event.target.value)
     );
     setResultSearch(resultTemp);
   };
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setCategory(selectedCategory);
+    setResultSearch(getCategoryBooks(selectedCategory));
+  };
+
+  const getCategoryBooks = (selectedCategory = category) => {
+    switch (selectedCategory) {
+      case "romance":
+        return romance;
+      case "history":
+        return history;
+      case "fantasy":
+        return fantasy;
+      case "horror":
+        return horror;
+      case "scifi":
+        return scifi;
+      default:
+        return romance;
+    }
+  };
+
   return (
     <BrowserRouter>
       <ThemeContextProvider>
-        <MyNav handleSearch={handleSearch} />
+        <MyNav handleSearch={handleSearch} handleCategoryChange={handleCategoryChange} />
         <ThemeWrapper>
           <Container>
             <Welcome />
